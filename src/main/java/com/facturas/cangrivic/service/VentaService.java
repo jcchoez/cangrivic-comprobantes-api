@@ -68,15 +68,6 @@ public class VentaService {
                 .orElseThrow(() -> new VentaNotFoundException("Venta no encontrada con ID: " + ventaId));
         return VentaMapper.toVentaResponseDTO(ventaEntity);
     }
-/*
-    // Crear una nueva venta
-    public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
-        VentaEntity ventaEntity = VentaMapper.toVentaEntity(ventaRequestDTO);
-        VentaEntity savedVenta = ventaRepository.save(ventaEntity);
-        return VentaMapper.toVentaResponseDTO(savedVenta);
-    }
-*/
-
 
 
 
@@ -96,21 +87,6 @@ public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
     long numeroComprobante = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'f');
 
     long codigoNumerico = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'c');
-
-
-/*
-
-    long numeroComprobante;
-    long codigoNumerico;
-
-    try {
-        numeroComprobante = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'f');
-        codigoNumerico = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'c');
-    } catch (Exception e) {
-        // Puedes crear tu propia excepción de negocio
-        throw new BusinessValidationException("Error generando número de comprobante: " + e.getMessage());
-    }*/
-
 
 
     //f = secuencial de factura
@@ -152,36 +128,6 @@ public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
 
 
 
-
-
-
-/*
-    private void validarVentaRequest(VentaRequestDTO ventaRequestDTO) {
-        if (ventaRequestDTO.getClienteId() == null) {
-            throw new BusinessValidationException("El campo 'clienteId' es obligatorio");
-        }
-
-        if (ventaRequestDTO.getTotal() == null) {
-            throw new BusinessValidationException("El campo 'total' es obligatorio");
-        }
-
-        if (ventaRequestDTO.getTotal().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new BusinessValidationException("El total debe ser mayor a 0");
-        }
-
-        if (ventaRequestDTO.getItems() == null || ventaRequestDTO.getItems().isEmpty()) {
-            throw new BusinessValidationException("La venta debe contener al menos un item");
-        }
-
-        // Validar que el cliente exista
-        if (!clienteRepository.existsById(ventaRequestDTO.getClienteId())) {
-            throw new BusinessValidationException(
-                    "Cliente con ID " + ventaRequestDTO.getClienteId() + " no existe");
-        }
-    }*/
-
-
-
     // Actualizar una venta
     public VentaResponseDTO actualizarVenta(Long ventaId, VentaRequestDTO ventaRequestDTO) {
         VentaEntity ventaEntity = ventaRepository.findById(ventaId)
@@ -213,21 +159,6 @@ public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
 
 
 
-/*
-    public Page<VentaResponseDTO> getVentasPorRangoPaginado(Integer empresaId, LocalDate fechaDesde, LocalDate fechaHasta, Pageable pageable) {
-        // Convertir LocalDate a LocalDateTime para cubrir todo el día final de manera robusta
-        LocalDateTime inicio = fechaDesde.atStartOfDay();
-        LocalDateTime fin = fechaHasta.plusDays(1).atStartOfDay(); // Exclusivo, incluye todo el día
-
-        Page<VentaEntity> ventasPage = ventaRepository
-                .findByEmpresaIdAndFechaVentaGreaterThanEqualAndFechaVentaLessThan(empresaId, inicio, fin, pageable);
-
-        List<VentaResponseDTO> ventasDTO = ventasPage.getContent().stream()
-                .map(VentaMapper::toVentaResponseDTO)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(ventasDTO, pageable, ventasPage.getTotalElements());
-    }*/
 
 
     public Page<VentaConClienteDTO> getVentasPorRangoPaginado(Integer empresaId, LocalDate fechaDesde, LocalDate fechaHasta, Pageable pageable) {

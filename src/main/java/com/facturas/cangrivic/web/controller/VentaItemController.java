@@ -24,48 +24,6 @@ public class VentaItemController {
         this.ventaItemService = ventaItemService;
     }
 
-    // Obtener todos los items
-    /*@GetMapping
-    public ResponseEntity<List<VentaItemResponseDTO>> obtenerTodosLosItems() {
-        List<VentaItemResponseDTO> items = ventaItemService.obtenerTodosLosItems();
-        return ResponseEntity.ok(items);
-    }
-
-    // Obtener un item por ID
-    @GetMapping("/{itemId}")
-    public ResponseEntity<VentaItemResponseDTO> obtenerItemPorId(@PathVariable Long itemId) {
-        try {
-            VentaItemResponseDTO item = ventaItemService.obtenerItemPorId(itemId);
-            return ResponseEntity.ok(item);
-        } catch (VentaItemNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-    // Crear un nuevo item
-    @PostMapping
-    public ResponseEntity<VentaItemResponseDTO> crearItem(@RequestBody @Valid VentaItemRequestDTO ventaItemRequestDTO) {
-        try {
-            VentaItemResponseDTO nuevoItem = ventaItemService.crearItem(ventaItemRequestDTO);
-            return new ResponseEntity<>(nuevoItem, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }*/
-
-    // Actualizar un item
-   /* @PutMapping("/{itemId}")
-    public ResponseEntity<VentaItemResponseDTO> actualizarItem(@PathVariable Long itemId,
-                                                               @RequestBody @Valid VentaItemRequestDTO ventaItemRequestDTO) {
-        try {
-            VentaItemResponseDTO itemActualizado = ventaItemService.actualizarItem(itemId, ventaItemRequestDTO);
-            return ResponseEntity.ok(itemActualizado);
-        } catch (VentaItemNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }*/
 
     // Eliminar un item
     @DeleteMapping("/{itemId}")

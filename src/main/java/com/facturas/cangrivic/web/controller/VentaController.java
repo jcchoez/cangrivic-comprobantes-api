@@ -110,33 +110,4 @@ public class VentaController {
         return ResponseEntity.ok(response);
     }
 
-    /*
-    @GetMapping("/empresa/{empresaId}/rango")
-    public ResponseEntity<Map<String, Object>> getVentasConClientePorRango(
-            @PathVariable Integer empresaId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDesde,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaHasta,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "fechaVenta") String sortBy,
-            @RequestParam(defaultValue = "ASC") String sortDir
-    ) {
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        // Llamada al service que ya devuelve VentaConClienteDTO con cliente incluido
-        Page<VentaConClienteDTO> ventasPage = ventaService.getVentasConClientePorRango(
-                empresaId, fechaDesde, fechaHasta, pageable
-        );
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("ventas", ventasPage.getContent());
-        response.put("currentPage", ventasPage.getNumber());
-        response.put("totalItems", ventasPage.getTotalElements());
-        response.put("totalPages", ventasPage.getTotalPages());
-        response.put("hasNext", ventasPage.hasNext());
-        response.put("hasPrevious", ventasPage.hasPrevious());
-
-        return ResponseEntity.ok(response);
-    }*/
 }
