@@ -70,7 +70,7 @@ public class CompraService {
                 .orElseThrow(() -> new EmpresaNotFoundException("Empresa no encontrada"));
 
         // Generar secuenciales (ajusta el tipo según tu lógica)
-        long numeroComprobante = secuencialService.generarNumeroComprobante(empresa.getEmpresaId(), 'f');
+        long numeroComprobante = secuencialService.generarNumeroComprobante(empresa.getEmpresaId(), 'l');
         long codigoNumerico = secuencialService.generarNumeroComprobante(empresa.getEmpresaId(), 'c');
 
         // Convertir y asignar

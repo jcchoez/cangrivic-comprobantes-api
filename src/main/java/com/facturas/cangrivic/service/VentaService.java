@@ -85,7 +85,7 @@ public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
     // 3. ¡GENERAR EL NÚMERO DE COMPROBANTE!
     // Llamas al servicio que se encarga de la lógica de secuenciales
     long numeroComprobante = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'f');
-
+    // Codigo numerico
     long codigoNumerico = secuencialService.generarNumeroComprobante(empresaEntity.getEmpresaId(), 'c');
 
 
