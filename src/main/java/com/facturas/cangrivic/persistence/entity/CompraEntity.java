@@ -119,4 +119,58 @@ public class CompraEntity {
     @Column(name = "fecha_modificacion")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Guayaquil")
     private Date fechaModificacion;
+
+
+
+    /* ============================================================
+      CAMPOS NUEVOS - RETENCIÓN SRI
+      ============================================================ */
+    @Column(name = "secuencial_retencion", length = 9)
+    private String secuencialRetencion;
+
+    @Column(name = "codigo_numerico_retencion", length = 8)
+    private String codigoNumericoRetencion;
+
+    @Column(name = "clave_acceso_retencion", length = 49)
+    private String claveAccesoRetencion;
+
+    @Column(name = "estado_sri_retencion", length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'PENDIENTE'")
+    private String estadoSriRetencion;
+
+    @Column(name = "mensaje_sri_retencion", columnDefinition = "TEXT")
+    private String mensajeSriRetencion;
+
+    @Column(name = "numero_autorizacion_retencion", length = 49)
+    private String numeroAutorizacionRetencion;
+
+    @Column(name = "fecha_autorizacion_retencion")
+    private LocalDateTime fechaAutorizacionRetencion;
+
+    @Column(name = "respuesta_json_retencion", columnDefinition = "TEXT")
+    private String respuestaJsonRetencion;
+
+    @Column(name = "intentos_envio_retencion", columnDefinition = "INT DEFAULT 0")
+    private Integer intentosEnvioRetencion = 0;
+
+    @Column(name = "ultimo_intento_envio_retencion")
+    private LocalDateTime ultimoIntentoEnvioRetencion;
+
+    /* ============================================================
+       CAMPOS NUEVOS - CORREO COMPRA
+       ============================================================ */
+    @Column(name = "correo_enviado_compra", columnDefinition = "TINYINT(1) DEFAULT 0")
+    private Boolean correoEnviadoCompra = false;
+
+    @Column(name = "intentos_envio_correo_compra", columnDefinition = "INT DEFAULT 0")
+    private Integer intentosEnvioCorreoCompra = 0;
+
+    @Column(name = "mensaje_envio_correo_compra", columnDefinition = "TEXT")
+    private String mensajeEnvioCorreoCompra;
+
+    @Column(name = "fecha_envio_correo_compra")
+    private LocalDateTime fechaEnvioCorreoCompra;
+
+    @Column(name = "ultimo_intento_envio_correo_compra")
+    private LocalDateTime ultimoIntentoEnvioCorreoCompra;
+
 }
