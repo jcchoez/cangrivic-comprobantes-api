@@ -79,8 +79,8 @@ public class CompraEntity {
     @Column(name = "ultimo_intento_envio")
     private LocalDateTime ultimoIntentoEnvio;
 
-    @Column(name = "tipo_comprobante", length = 2, columnDefinition = "CHAR(2) DEFAULT '01'")
-    private String tipoComprobante = "01";
+    @Column(name = "tipo_comprobante", length = 2, columnDefinition = "CHAR(2) DEFAULT '03'")
+    private String tipoComprobante = "03";
 
     @Column(name = "respuesta_json", columnDefinition = "TEXT")
     private String respuestaJson;
