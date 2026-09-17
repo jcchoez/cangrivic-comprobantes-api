@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-// Entidad para la tabla 'secuenciales' (el catálogo)
+// Entidad para la tabla 'secuenciales' (el catálogo y contador)
 @Entity
 @Getter
 @Setter
@@ -26,5 +24,6 @@ public class SecuencialEntity {
     @Column(name = "empresa_id")
     private Integer empresaId;
 
-    // Getters y setters...
+    @Column(name = "siguiente_numero")
+    private Long siguienteNumero; // Próximo número a emitir para esta empresa y tipo
 }

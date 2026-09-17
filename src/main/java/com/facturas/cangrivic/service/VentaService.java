@@ -14,6 +14,7 @@ import com.facturas.cangrivic.persistence.repository.VentaRepository;
 import com.facturas.cangrivic.service.mapper.VentaConClienteMapper;
 import com.facturas.cangrivic.service.mapper.VentaItemMapper;
 import com.facturas.cangrivic.service.mapper.VentaMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -72,6 +73,7 @@ public class VentaService {
 
 
 // Crear una nueva venta con items
+@Transactional
 public VentaResponseDTO crearVenta(VentaRequestDTO ventaRequestDTO) {
 
     //busca la empresa por el ID

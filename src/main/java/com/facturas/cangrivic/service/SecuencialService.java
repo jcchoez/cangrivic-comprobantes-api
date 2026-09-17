@@ -1,10 +1,7 @@
 package com.facturas.cangrivic.service;
 
-import com.facturas.cangrivic.exception.EmpresaNotFoundException;
 import com.facturas.cangrivic.exception.SecuencialesNotFoundException;
 import com.facturas.cangrivic.persistence.entity.SecuencialEntity;
-import com.facturas.cangrivic.persistence.entity.SecuencialLogEntity;
-import com.facturas.cangrivic.persistence.repository.SecuencialLogRepository;
 import com.facturas.cangrivic.persistence.repository.SecuencialRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,37 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 public class SecuencialService {
 
     private final SecuencialRepository secuencialRepository;
-    private final SecuencialLogRepository secuencialLogRepository;
 
-    public SecuencialService(
-            SecuencialRepository secuencialRepository,
-            SecuencialLogRepository secuencialLogRepository) {
+    public SecuencialService(SecuencialRepository secuencialRepository) {
         this.secuencialRepository = secuencialRepository;
-        this.secuencialLogRepository = secuencialLogRepository;
     }
 
     /**
-     * Genera un nuevo número de comprobante para la empresa y tipo especificados.
+     * Genera un nuevo número de comprobante para la empresa y tipo especificados mediante un UPDATE seguro.
      * @param empresaId El ID de la empresa.
-     * @param tipoSecuencial El nombre del tipo de secuencial (ej. "factura").
+     * @param tipoSecuencial El carácter del tipo de secuencial (ej. 'f' para factura, 'c' para código numérico).
      * @return El número de comprobante generado.
      */
+    @Transactional
     public long generarNumeroComprobante(int empresaId, char tipoSecuencial) {
-        // 1. Busca la entidad de catálogo del secuencial
+        // 1. Busca y bloquea el registro en la base de datos para evitar condiciones de carrera
         SecuencialEntity secuencial = secuencialRepository
-                .findByNombreAndEmpresaId(tipoSecuencial, empresaId)
+                .findByNombreAndEmpresaIdWithLock(tipoSecuencial, empresaId)
                 .orElseThrow(() -> new SecuencialesNotFoundException("El secuencial '" + tipoSecuencial + "' no se encontró para la empresa " + empresaId));
 
-        // 2. Crea una nueva entidad de log
-        SecuencialLogEntity log = new SecuencialLogEntity();
-        log.setSecuencial(secuencial); // JPA maneja la llave foránea automáticamente
-        log.setEmpresaId(empresaId);
-        log.setFechaCreacion(java.time.LocalDateTime.now());
+        // 2. Obtiene el número que le corresponde actualmente
+        long numeroGenerado = secuencial.getSiguienteNumero();
 
-        // 3. Guarda la entidad del log. El número se generará con AUTO_INCREMENT
-        SecuencialLogEntity savedLog = secuencialLogRepository.save(log);
+        // 3. Incrementa el contador y lo guarda (ejecuta un UPDATE en la tabla secuenciales)
+        secuencial.setSiguienteNumero(numeroGenerado + 1);
+        secuencialRepository.save(secuencial);
 
-        // 4. Retorna el número generado
-        return savedLog.getNumero();
+        // 4. Retorna el número generado para la venta
+        return numeroGenerado;
     }
 }
